@@ -99,4 +99,111 @@ export default function ModifierAnnoncePage({ params }: { params: { id: string }
                   >
                     <option value="formation">Formation</option>
                     <option value="emploi">Emploi</option>
-                    <option value="evenement">\
+                    <option value="evenement">Événement</option>
+                  </select>
+                </div>
+
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <textarea
+                    id="description"
+                    defaultValue={annonce.description}
+                    className="w-full mt-1 border rounded-md px-3 py-2 bg-white text-gray-800"
+                    rows={5}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="lieu">Lieu</Label>
+                  <Input
+                    id="lieu"
+                    defaultValue={annonce.lieu}
+                    className="mt-1"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="date">Date de début</Label>
+                    <Input
+                      id="date"
+                      type="date"
+                      defaultValue={annonce.date}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="dateFin">Date de fin</Label>
+                    <Input
+                      id="dateFin"
+                      type="date"
+                      defaultValue={annonce.dateFin}
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Détails supplémentaires */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">Détails supplémentaires</h2>
+              <div className="space-y-4">
+                {Object.entries(annonce.details).map(([key, value]) => (
+                  <div key={key}>
+                    <Label htmlFor={key}>{key}</Label>
+                    <Input
+                      id={key}
+                      defaultValue={value}
+                      className="mt-1"
+                    />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Colonne secondaire */}
+        <div className="space-y-6">
+          {/* Statut */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">Statut</h2>
+              <select
+                id="statut"
+                defaultValue={annonce.statut}
+                className="w-full border rounded-md px-3 py-2 bg-white text-gray-800"
+              >
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="en_attente">En attente</option>
+              </select>
+            </CardContent>
+          </Card>
+
+          {/* Image */}
+          <Card>
+            <CardContent className="p-6">
+              <h2 className="text-lg font-semibold mb-4">Image</h2>
+              <div className="space-y-4">
+                <img
+                  src={annonce.image}
+                  alt="Aperçu de l'image"
+                  className="w-full h-auto rounded-md"
+                />
+                <Input
+                  id="image"
+                  type="file"
+                  className="mt-1"
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
