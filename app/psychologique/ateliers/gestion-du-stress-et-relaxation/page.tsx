@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Clock, MapPin, Users, CheckCircle } from "lucide-r
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
 
 export default function AtelierPage() {
   const [isRegistered, setIsRegistered] = useState(false)
@@ -188,4 +189,91 @@ export default function AtelierPage() {
                       <p className="text-sm font-medium">Ce que vous apprendrez :</p>
                       <ul className="text-sm space-y-1">
                         <li className="flex items-start">
-                          <CheckCircle className="h-4 w-\
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5" />
+                          <span>Techniques de relaxation efficaces</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5" />
+                          <span>Gestion du stress au quotidien</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-4 w-4 text-green-500 mr-2 mt-0.5" />
+                          <span>Exercices pratiques guidés</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <Button 
+                      className="w-full bg-pink-600 hover:bg-pink-700"
+                      onClick={handleRegister}
+                    >
+                      S'inscrire maintenant
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="text-center space-y-4">
+                    <CheckCircle className="h-12 w-12 text-green-500 mx-auto" />
+                    <h3 className="text-lg font-bold">Inscription confirmée !</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Vous êtes inscrite à l'atelier "Gestion du stress et relaxation". Nous vous avons envoyé un email de confirmation avec tous les détails.
+                    </p>
+                    <Button variant="outline" className="w-full">
+                      Ajouter à mon calendrier
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Animateur</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center space-x-4">
+                  <div className="relative h-16 w-16 rounded-full overflow-hidden">
+                    <Image
+                      src="/placeholder.svg?height=64&width=64"
+                      fill
+                      alt="Dr. Thomas Ndong"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Dr. Thomas Ndong</h4>
+                    <p className="text-sm text-muted-foreground">Psychologue spécialisé en TCC</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm">
+                  Avec plus de 10 ans d'expérience dans l'accompagnement psychologique, Dr. Ndong a aidé des centaines de personnes à mieux gérer leur stress et anxiété.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Lieu</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <p className="font-medium">Centre Mod'Elles</p>
+                  <p className="text-sm text-muted-foreground">
+                    123 Avenue du Colonel Parant,<br />
+                    Libreville, Gabon
+                  </p>
+                  <div className="relative h-40 w-full rounded-lg overflow-hidden mt-2">
+                    <Image
+                      src="/placeholder.svg?height=300&width=600"
+                      fill
+                      alt="Centre Mod'Elles"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
