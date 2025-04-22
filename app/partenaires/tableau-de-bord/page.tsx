@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { PlusCircle, FileText, Users, BarChart3, AlertCircle } from "lucide-react"
+import { PlusCircle, FileText, Users, BarChart3, AlertCircle, Share2 } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 
 export default function TableauDeBordPartenaire() {
@@ -215,6 +215,7 @@ export default function TableauDeBordPartenaire() {
           <TabsTrigger value="candidatures">Candidatures récentes</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
         </TabsList>
+        
         <TabsContent value="annonces" className="space-y-4">
           <div className="rounded-md border">
             {loading ? (
@@ -272,6 +273,7 @@ export default function TableauDeBordPartenaire() {
             </Button>
           </div>
         </TabsContent>
+        
         <TabsContent value="candidatures" className="space-y-4">
           <div className="rounded-md border">
             {loading ? (
@@ -335,6 +337,7 @@ export default function TableauDeBordPartenaire() {
             </Button>
           </div>
         </TabsContent>
+        
         <TabsContent value="notifications" className="space-y-4">
           <div className="rounded-md border">
             {loading ? (
@@ -365,4 +368,21 @@ export default function TableauDeBordPartenaire() {
                           Nouveau
                         </span>
                       )}
-                \
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex justify-end">
+            <Button variant="outline" asChild>
+              <Link href="/partenaires/notifications">
+                Voir toutes les notifications
+              </Link>
+            </Button>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
