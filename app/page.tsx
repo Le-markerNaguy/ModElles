@@ -182,7 +182,7 @@ export default function Home() {
             {/* Annonces Service */}
             <ServiceSection
               title="précarité menstruelle"
-              description="Découvre des offres d'emploi et des formations adaptées à ton profil pour développer ton avenir professionnel."
+              description="Chez Mod'Elles, nous savons qu’avoir ses règles ne devrait jamais être un obstacle ou une source d’angoisse. Pourtant, au Gabon, beaucoup de femmes manquent encore de l’essentiel : protections hygiéniques, informations, ou même un espace pour en parler sans tabou."
               icon={<Briefcase className="h-10 w-10 text-blue-600" />}
               iconBgColor="bg-blue-100"
               linkHref="/annonces"
@@ -190,16 +190,14 @@ export default function Home() {
               imageUrl="/menstruelle.jpg?height=300&width=400"
               gradientColors="from-blue-500/40 to-sky-500/40"
               howItWorks={[
-                "Consulte les offres d'emploi mises à jour régulièrement",
-                "Découvre des formations professionnelles adaptées",
-                "Postule directement via la plateforme",
-                "Reçois des alertes personnalisées selon ton profil",
+                " Nous distribuons des kits menstruels complets : serviettes jetables ou réutilisables, tampons, et même des cups.",
+                " Nous offrons des guides pratiques .",
+                " Grâce à notre appli, trouvez en un clic les points de distribution près de chez vous, et recevez des informations sur les prochaines campagnes de dons"
               ]}
             />
           </div>
         </div>
       </section>
-
       {/* Testimonials */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
         <div className="container px-4 md:px-6">
