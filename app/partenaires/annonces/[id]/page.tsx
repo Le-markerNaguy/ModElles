@@ -250,4 +250,67 @@ export default function AnnoncePage({ params }: { params: { id: string } }) {
             </CardHeader>
             <CardContent>
               {candidaturesCount > 0 ? (
-                <div className="space-y-4">\
+                <div className="space-y-4">
+                  {/* Exemple de liste de candidatures */}
+                  {getCandidaturesByAnnonce(params.id).map((candidature) => (
+                    <div
+                      key={candidature.id}
+                      className="flex items-center justify-between p-4 border rounded-md"
+                    >
+                      <div>
+                        <p className="font-medium">{candidature.nom}</p>
+                        <p className="text-sm text-muted-foreground">{candidature.email}</p>
+                      </div>
+                      <Button variant="outline" size="sm" asChild>
+                        <Link href={`/partenaires/annonces/${annonce.id}/candidatures/${candidature.id}`}>
+                          Voir
+                        </Link>
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground">Aucune candidature reçue pour cette annonce.</p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Colonne latérale */}
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Détails</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Lieu</p>
+                <p className="font-medium">{annonce.lieu}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Date de début</p>
+                <p className="font-medium">{annonce.date}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Date de fin</p>
+                <p className="font-medium">{annonce.dateFin}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle>Partager</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" size="sm" className="w-full">
+                <Share2 className="mr-2 h-4 w-4" />
+                Copier le lien
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
