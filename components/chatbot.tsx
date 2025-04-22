@@ -18,7 +18,7 @@ type Message = {
 const INITIAL_MESSAGES: Message[] = [
   {
     id: 1,
-    text: "Bonjour ! Je suis l'assistante virtuelle de Mod'Elles. Comment puis-je vous aider aujourd'hui ?",
+    text: "Bonjour ! Je suis Estelle l'assistante virtuelle de Mod'Elles. Comment puis-je vous aider aujourd'hui ?",
     isBot: true,
   },
 ]
@@ -31,7 +31,6 @@ export function Chatbot() {
   const [isTyping, setIsTyping] = useState(false)
   const [lastInteraction, setLastInteraction] = useState(Date.now())
 
-  // Effet pour suggérer une interaction après une période d'inactivité
   useEffect(() => {
     const inactivityTimer = setTimeout(() => {
       if (isOpen && !isMinimized && messages.length < 3) {
@@ -42,7 +41,7 @@ export function Chatbot() {
         }
         setMessages((prev) => [...prev, suggestionMessage])
       }
-    }, 30000) // 30 secondes d'inactivité
+    }, 30000)
 
     return () => clearTimeout(inactivityTimer)
   }, [lastInteraction, isOpen, isMinimized, messages.length])
@@ -50,7 +49,6 @@ export function Chatbot() {
   const handleSendMessage = () => {
     if (!input.trim()) return
 
-    // Ajouter le message de l'utilisateur
     const userMessage: Message = {
       id: messages.length + 1,
       text: input,
@@ -61,7 +59,6 @@ export function Chatbot() {
     setLastInteraction(Date.now())
     setIsTyping(true)
 
-    // Simuler une réponse du bot après un court délai
     setTimeout(() => {
       const botResponse = getBotResponse(input)
       const botMessage: Message = {
@@ -77,68 +74,55 @@ export function Chatbot() {
   const getBotResponse = (userInput: string) => {
     const input = userInput.toLowerCase()
 
-    // Santé reproductive
-    if (input.includes("cycle") || input.includes("règles") || input.includes("menstruel")) {
-      return "Notre outil de suivi de cycle menstruel vous permet de suivre vos règles, symptômes et période de fertilité. Vous pouvez y accéder dans la section Santé Reproductive. Souhaitez-vous que je vous explique comment l'utiliser ?"
+    if (input.includes("stérilet") || input.includes("diu")) {
+      return "Le stérilet (ou DIU) est une méthode contraceptive longue durée très efficace. Nous proposons des consultations pour pose de stérilet dans plusieurs centres partenaires. Souhaitez-vous plus d'informations ou prendre rendez-vous ?"
     }
-
-    if (input.includes("contraception") || input.includes("contraceptif")) {
-      return "Mod'Elles propose des informations sur les différentes méthodes contraceptives disponibles au Gabon. Vous pouvez consulter ces ressources dans la section Santé Reproductive ou prendre rendez-vous avec un professionnel de santé pour des conseils personnalisés."
+    if (input.includes("pilule") || input.includes("contraceptive")) {
+      return "La pilule contraceptive existe en plusieurs types (combinée, progestative). Une consultation médicale est nécessaire pour trouver celle qui vous convient. Je peux vous aider à trouver un gynécologue près de chez vous."
     }
-
-    if (input.includes("grossesse") || input.includes("enceinte")) {
-      return "Si vous êtes enceinte ou pensez l'être, nous vous recommandons de consulter rapidement un professionnel de santé. Vous pouvez prendre rendez-vous dans l'un de nos centres partenaires via la section Rendez-vous. Souhaitez-vous que je vous aide à prendre rendez-vous ?"
+    if (input.includes("ist") || input.includes("mst") || input.includes("infection") || input.includes("sida")) {
+      return "Pour toute question sur les infections sexuellement transmissibles (IST), vous pouvez consulter anonymement dans un centre de santé partenaire. Nous proposons aussi des dépistages gratuits certains jours. Voulez-vous connaître les centres les plus proches de vous ?"
     }
-
-    // Rendez-vous
-    if (input.includes("rendez-vous") || input.includes("rdv") || input.includes("consultation")) {
-      if (input.includes("annuler") || input.includes("reporter")) {
-        return "Pour annuler ou reporter un rendez-vous, veuillez vous connecter à votre compte personnel ou contacter directement le centre ou le professionnel concerné au moins 24h à l'avance."
+    if (input.includes("dépression") || input.includes("tristesse") || input.includes("déprime")) {
+      return "Si vous vous sentez déprimée ou triste depuis plusieurs semaines, il est important d'en parler à un professionnel. Nos psychologues peuvent vous aider à traverser cette période difficile. Voulez-vous que je vous explique comment prendre rendez-vous ?"
+    }
+    if (input.includes("anxiété") || input.includes("stress") || input.includes("angoisse")) {
+      return "L'anxiété peut être très invalidante. Nous proposons des ateliers de gestion du stress et des consultations individuelles avec des psychologues spécialisés. Nous avons aussi une séance d'information gratuite chaque mercredi. Cela vous intéresse-t-il ?"
+    }
+    if (input.includes("violence") || input.includes("agression") || input.includes("abus")) {
+      return "Si vous avez subi des violences, sachez que vous n'êtes pas seule. Nous avons des psychologues formés pour vous accompagner dans un cadre sécurisé et confidentiel. Vous pouvez aussi rejoindre notre groupe de parole pour survivantes de violences. Voulez-vous plus d'informations ?"
+    }
+    if (input.includes("douleur") || input.includes("santé") || input.includes("médical")) {
+      if (input.includes("sein") || input.includes("mamelon")) {
+        return "Toute douleur ou changement au niveau des seins doit être examiné par un professionnel. Je peux vous aider à trouver un gynécologue ou un centre de dépistage près de chez vous."
       }
-      if (input.includes("psychologue") || input.includes("psy")) {
-        return "Pour prendre rendez-vous avec un psychologue, rendez-vous dans la section 'Soutien Psychologique' puis cliquez sur 'Prendre rendez-vous'. Vous pourrez choisir un psychologue selon sa spécialité et ses disponibilités."
+      return "Pour toute question médicale, je vous recommande de consulter un professionnel de santé. Je peux vous aider à trouver un médecin généraliste ou spécialiste selon vos besoins."
+    }
+    if (input.includes("enfant") || input.includes("bébé") || input.includes("procréer")) {
+      if (input.includes("pas") || input.includes("ne veux pas")) {
+        return "Si vous ne souhaitez pas avoir d'enfant, plusieurs options contraceptives existent. Nous pouvons vous orienter vers un professionnel pour discuter des méthodes les plus adaptées à votre situation."
       }
-      return "Vous pouvez prendre rendez-vous dans un centre de santé ou avec un psychologue en quelques clics. Rendez-vous dans la section 'Rendez-vous' pour un centre de santé ou 'Soutien Psychologique' pour consulter un psychologue. Que souhaitez-vous faire ?"
+      return "Si vous envisagez d'avoir un enfant, nous proposons des consultations préconceptionnelles pour faire un bilan de santé et discuter de vos questions. Voulez-vous plus d'informations ?"
     }
-
-    // Soutien psychologique
-    if (input.includes("psychologue") || input.includes("psy") || input.includes("thérapie")) {
-      return "Nous proposons des consultations avec des psychologues qualifiés spécialisés dans différents domaines (traumatismes, anxiété, dépression, thérapie familiale). Vous pouvez consulter leurs profils et prendre rendez-vous dans la section Soutien Psychologique."
+    if (input.includes("activité") || input.includes("événement") || input.includes("atelier")) {
+      return "Nous organisons régulièrement des ateliers (santé, bien-être, développement personnel) et des événements communautaires. Consultez notre calendrier dans la section 'Activités' ou dites-moi quel type d'activité vous intéresse."
     }
-
-    if (input.includes("groupe") || input.includes("soutien") || input.includes("atelier")) {
-      return "Mod'Elles organise plusieurs groupes de soutien et ateliers sur des thématiques variées (survivantes de violences, gestion de l'anxiété, estime de soi). Ces groupes sont animés par des professionnels et offrent un espace sécurisé pour partager et apprendre. Consultez la section Soutien Psychologique pour voir le calendrier et vous inscrire."
+    if (input.includes("bénévole") || input.includes("volontaire") || input.includes("participer")) {
+      return "Nous recherchons toujours des bénévoles passionnées ! Vous pouvez contribuer selon vos compétences et disponibilités. Rendez-vous dans la section 'Devenir bénévole' pour plus d'informations et remplir le formulaire."
     }
-
-    // Urgence
-    if (input.includes("urgence") || input.includes("danger") || input.includes("violence")) {
-      return "Si vous êtes en situation d'urgence ou de danger immédiat, cliquez sur le bouton URGENCE en haut de la page. Vous pourrez déclencher une alerte, contacter les services d'urgence ou trouver un refuge. Votre sécurité est notre priorité absolue."
+    if (input.includes("don") || input.includes("soutenir") || input.includes("faire un don")) {
+      return "Votre soutien nous est précieux ! Vous pouvez faire un don financier ou matériel via notre page 'Nous soutenir'. Chaque contribution aide directement les femmes que nous accompagnons. Merci pour votre générosité !"
     }
-
-    // Informations générales
-    if (input.includes("mod'elles") || input.includes("modelles") || input.includes("site")) {
-      return "Mod'Elles est une plateforme dédiée à la santé reproductive, au soutien psychologique et à l'autonomisation des femmes au Gabon. Notre mission est de vous offrir des ressources fiables, un accompagnement personnalisé et un espace sécurisé. Pour en savoir plus, visitez notre page 'À propos'."
+    if (input.includes("confidentiel") || input.includes("secret") || input.includes("anonyme")) {
+      return "Toutes vos interactions avec Mod'Elles sont strictement confidentielles. Vos données personnelles et médicales sont protégées. Nous ne partageons aucune information sans votre consentement explicite."
     }
-
-    if (input.includes("inscription") || input.includes("compte") || input.includes("inscrire")) {
-      return "Pour créer un compte sur Mod'Elles, cliquez sur 'Rejoins notre communauté' sur la page d'accueil ou sur 'Inscription' dans le menu. L'inscription est gratuite et vous permettra d'accéder à des fonctionnalités personnalisées."
+    if (input.includes("peur") || input.includes("inquiète") || input.includes("panique")) {
+      return "Je comprends que cette situation doit être difficile pour vous. Prenez quelques respirations profondes. Vous n'êtes pas seule. Nous pouvons trouver ensemble une solution ou une personne qui pourra vous aider. Voulez-vous en parler ?"
     }
-
-    if (input.includes("contact") || input.includes("joindre") || input.includes("téléphone")) {
-      return "Vous pouvez nous contacter par téléphone au XXX-XXX-XXX, par email à contact@modelles.ga ou via notre formulaire de contact dans la section 'Contact'. Notre équipe vous répondra dans les plus brefs délais."
+    if (input.includes("seule") || input.includes("isolement") || input.includes("solitude")) {
+      return "Beaucoup de femmes traversent des moments de solitude. Nos groupes de parole et activités communautaires peuvent être un bon moyen de rencontrer d'autres personnes. Cela vous dirait d'essayer ?"
     }
-
-    // Remerciements et salutations
-    if (input.includes("merci") || input.includes("au revoir") || input.includes("a plus")) {
-      return "Je vous en prie ! N'hésitez pas à revenir si vous avez d'autres questions. Prenez soin de vous et à bientôt !"
-    }
-
-    if (input.includes("bonjour") || input.includes("salut") || input.includes("hello")) {
-      return "Bonjour ! Heureuse de vous accueillir sur Mod'Elles. Comment puis-je vous aider aujourd'hui ?"
-    }
-
-    // Réponse par défaut
-    return "Je suis là pour vous aider avec des informations sur la santé reproductive, le soutien psychologique et les services de Mod'Elles. N'hésitez pas à me poser des questions plus précises pour que je puisse mieux vous orienter."
+    return `Je n'ai pas bien compris votre demande. Voici ce dont je peux vous parler :\n- Santé reproductive (contraception, suivi de cycle, etc.)\n- Soutien psychologique (consultations, groupes de parole)\n- Services Mod'Elles (rendez-vous, activités, bénévolat)\n- Situations d'urgence\n\nPouvez-vous reformuler votre question ou choisir un de ces thèmes ?`
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -149,7 +133,6 @@ export function Chatbot() {
 
   return (
     <>
-      {/* Bouton flottant pour ouvrir le chat */}
       {!isOpen && (
         <Button
           onClick={() => setIsOpen(true)}
@@ -159,7 +142,6 @@ export function Chatbot() {
         </Button>
       )}
 
-      {/* Fenêtre de chat */}
       {isOpen && (
         <Card
           className={cn(
